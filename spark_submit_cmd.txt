@@ -1,0 +1,42 @@
+# Spark Submit sample
+
+ ./bin/spark-submit 
+ --properties-file /usr/local/hadoop/deployment/streaming_input.properties
+ 
+ --master yarn-client
+ --num-executors 3 
+ --executor-cores 2 
+ --jars /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/spark-streaming_2.10-1.4.1.jar,
+ /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/spark-streaming-flume_2.10-1.4.1.jar,
+ /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/flume-ng-sdk-1.3.1.jar,
+ /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/guava-18.0.jar,
+ /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/elasticsearch-spark_2.10-2.1.0.jar,
+ /usr/local/hadoop/es_prod_deployment/spark_streaming_libs/spark-streaming-flume-sink_2.10-1.5.0.jar  
+ 
+ --conf spark.driver.userClassPathFirst=true  
+ 
+ --class com.ebay.eshadoop.sparkjobs.FlumePollingStreamPipeLineTest 
+ 
+ /usr/local/hadoop/deployment/elasticsearch_hadoop_integration-0.0.1.jar 
+ 
+ yarn-client 
+ 10.64.217.130:9200
+ 10.64.217.130:4712
+ 
+ --properties-file 
+ this option used to load the external properties file Config Keys to SparkConfig Object.
+ Note: the properties should startwith spark.xxxxxxx.yyyyyyy
+ 
+ 
+ --class 
+ which class you want to execute in the supplied JAR 
+ 
+ /usr/local/hadoop/deployment/elasticsearch_hadoop_integration-0.0.1.jar 
+ this is our Spark Job library which has streaming job class
+ 
+ yarn-client - First Argument to our Job ( Mode of Execution )
+ 10.64.217.130:9200  - Second argument to our Job ( ELASTIC SEARCH Server address & port )
+ 10.64.217.130:4712  - third argument to our Job ( Flume SINK Servers ) You can pass list of ips using this format IP:PORT,IP:PORT
+ 
+ 
+ 
